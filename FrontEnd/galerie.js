@@ -1,5 +1,5 @@
-// Récupération des travaux de l'architecte depuis l'API + conversion en json
-const travaux = await fetch("http://localhost:5678/api/works").then(travaux => travaux.json())
+// Récupération des travaux de l'architecte depuis l'API + conversion des données en JSON
+export const travaux = await fetch("http://localhost:5678/api/works").then(travaux => travaux.json())
 
 console.log(travaux)
 
@@ -36,3 +36,76 @@ function genererGalerie (travaux)
 }
 
 genererGalerie(travaux)
+
+
+
+
+
+//********** Filtre "Hôtels et restaurants" **********
+
+const boutonFiltrerTous = document.getElementById("btn-tous")
+
+boutonFiltrerTous.addEventListener('click', () => 
+{
+    genererGalerie(travaux) // on ajoute les projets correspondant au filtre
+})
+
+
+
+//********** Filtre "Objets" **********
+
+const boutonFiltrerObjets = document.getElementById("btn-objets")
+
+boutonFiltrerObjets.addEventListener('click', () => 
+{
+    const projetsFiltres = travaux.filter(function (projet)
+    {
+        return projet.category.name === "Objets"
+    })
+    
+    document.querySelector(".gallery").innerHTML = "" // on retire tous les projets 
+
+    genererGalerie(projetsFiltres) // on ajoute les projets correspondant au filtre
+
+    console.log(projetsFiltres)
+})
+
+
+
+//********** Filtre "Appartements" **********
+
+const boutonFiltrerApparts = document.getElementById("btn-appartements")
+
+boutonFiltrerApparts.addEventListener('click', () => 
+{
+    const projetsFiltres = travaux.filter(function (projet)
+    {
+        return projet.category.name === "Appartements"
+    })
+    
+    document.querySelector(".gallery").innerHTML = "" // on retire tous les projets 
+
+    genererGalerie(projetsFiltres) // on ajoute les projets correspondant au filtre
+
+    console.log(projetsFiltres)
+})
+
+
+
+//********** Filtre "Hôtels et restaurants" **********
+
+const boutonFiltrerHotels = document.getElementById("btn-hotels")
+
+boutonFiltrerHotels.addEventListener('click', () => 
+{
+    const projetsFiltres = travaux.filter(function (projet)
+    {
+        return projet.category.name === "Hotels & restaurants"
+    })
+    
+    document.querySelector(".gallery").innerHTML = "" // on retire tous les projets 
+
+    genererGalerie(projetsFiltres) // on ajoute les projets correspondant au filtre
+
+    console.log(projetsFiltres)
+})
