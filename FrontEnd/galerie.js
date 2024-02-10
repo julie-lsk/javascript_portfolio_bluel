@@ -41,13 +41,15 @@ genererGalerie(travaux)
 
 
 
-//********** Filtre "Hôtels et restaurants" **********
+
+//********** Filtre "Tous" **********
 
 const boutonFiltrerTous = document.getElementById("btn-tous")
+// Création d'un tableau pour stocker les id des projets déjà ajoutés :
 
 boutonFiltrerTous.addEventListener('click', () => 
 {
-    genererGalerie(travaux) // on ajoute les projets correspondant au filtre
+    genererGalerie(travaux) // on ajoute TOUS les projets
 })
 
 
