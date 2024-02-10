@@ -6,38 +6,42 @@ console.log(travaux)
 // Création de la galerie à partir des données de l'API
 function genererGalerie (travaux)
 {
-    for (let i = 0 ; i < travaux.length ; i++)
+    // const projetsAjoutes = new Set()
+
+    travaux.forEach(projet => 
     {
-        const projet = travaux[i]
+        // // Vérifier si le projet n'existe pas dans les projets ajoutés
+        // if (!projetsAjoutes.has(projet.id)) 
+        // {
+        //     // Ajoute l'identifiant du projet à la liste des projets ajoutés
+        //     projetsAjoutes.add(projet.id)
 
-        // Récupération de l'élément du DOM qui accueillera la galerie de projets/travaux
-        const sectionGalerie = document.querySelector(".gallery")
-        // Création d'une balise dédiée à chaque projet
-        const projetElement = document.createElement("figure")
+            // Récupération de l'élément du DOM qui accueillera la galerie de projets/travaux
+            const sectionGalerie = document.querySelector(".gallery")
+            // Création d'une balise dédiée à chaque projet
+            const projetElement = document.createElement("figure")
+
+            // On créé une image
+            const imageElement = document.createElement("img")
+            // On désigne la source de l'image à chercher dans le JSON
+            imageElement.src = projet.imageUrl
+
+            // On créé la balise pour y mettre le titre de l'image
+            const nomElement = document.createElement("figcaption")
+            nomElement.innerText = projet.title
 
 
-        // On créé une image
-        const imageElement = document.createElement("img")
-        // On désigne la source de l'image à chercher dans le JSON
-        imageElement.src = projet.imageUrl
-
-        // On créé la balise pour y mettre le titre de l'image
-        const nomElement = document.createElement("figcaption")
-        nomElement.innerText = projet.title
-
-
-        // On rattache la balise (qui va contenir notre card) à la section galerie (.gallery)
-        sectionGalerie.appendChild(projetElement)
-        // On rattache l'image au projet/notre card
-        projetElement.appendChild(imageElement)
-        // Et on ajoute le texte au projet
-        projetElement.appendChild(nomElement)
-    }
+            // On rattache la balise (qui va contenir notre card) à la section galerie (.gallery)
+            sectionGalerie.appendChild(projetElement)
+            // On rattache l'image au projet/notre card
+            projetElement.appendChild(imageElement)
+            // Et on ajoute le texte au projet
+            projetElement.appendChild(nomElement)
+        // }
+    })
 }
 
 genererGalerie(travaux)
-
-
 
 
 
@@ -49,6 +53,7 @@ const boutonFiltrerTous = document.getElementById("btn-tous")
 
 boutonFiltrerTous.addEventListener('click', () => 
 {
+    document.querySelector(".gallery").innerHTML = ""
     genererGalerie(travaux) // on ajoute TOUS les projets
 })
 
