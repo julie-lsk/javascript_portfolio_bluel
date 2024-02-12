@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="./assets/style.css">
         <link rel="stylesheet" href="./assets/style_login.css">
 		<script src="galerie.js" type="module"></script> <!-- pour meilleure performance, le fichier JS charge en attendant le chargement de la page HTML -->
+		<script src="login.js" type="module"></script>
 	</head>
 
 	
@@ -40,12 +41,12 @@
 
                 <h2>Log In</h2>
 
-                <form action="" method="">
+                <form method="POST" id="form-login">
                     <label for="email">E-mail</label>
                     <input type="text" id="email" name="email" required><br>
                     <label for="password" id="label-password">Mot de passe</label>
                     <input type="password" id="password" name="password" required><br>
-                    <input type="submit" value="Se connecter">
+                    <input type="submit" value="Se connecter" id="btn-connexion">
                 </form>
 
                 <a href="#">Mot de passe oublié</a>

@@ -1,5 +1,8 @@
 // Récupération des travaux de l'architecte depuis l'API + conversion des données en JSON
 export const travaux = await fetch("http://localhost:5678/api/works").then(travaux => travaux.json())
+// import {login} from "./login.js"
+
+// login()
 
 console.log(travaux)
 
