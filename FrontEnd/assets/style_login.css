@@ -8,6 +8,11 @@ html
     background-color: #FFFEF8;
 }
 
+#nav-login
+{
+    font-weight: 600;
+}
+
 #login
 {
     display: flex;
@@ -59,8 +64,91 @@ input[type=submit]
 footer nav ul
 {
     background-color: white;
-    margin-top: 400px;
+    margin-top: 45%;
     bottom: 0;
     padding: 30px;
+}
+
+
+
+
+
+/* Style de la popup - message d'erreur */
+
+.popup-background
+{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
     width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.popup
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 20px;
+    border: 1px solid none;
+    box-shadow: 0px 5px 14px 0px rgb(149, 144, 144);
+}
+
+#zone-warning
+{
+    background-color: #B1663C;
+    margin-bottom: 10px;
+    border-radius: 20px 20px 0 0;
+}
+
+#zone-warning img
+{
+    background-color: #B1663C;
+    width: 65px;
+    height: 65x;
+    padding: 10px;
+}
+
+#zone-text
+{
+    padding: 5px 20px 22px 20px;
+    gap: 20px;
+    border-radius: 0 0 20px 20px;
+}
+#zone-text b
+{
+    font-size: 23px;
+    font-weight: 600;
+}
+
+#zone-text p
+{
+    padding-top: 20px;
+}
+
+#zone-text button
+{
+    margin-top: 20px;
+    padding: 7px 20px;
+    font-size: 15px;
+    background-color: #B1663C;
+    color: #FFFEF8;
+    border: none;
+    border-radius: 25px;
+}
+
+#zone-text button:hover
+{
+    background-color: rgba(177, 102, 60, 0.7);
 }
