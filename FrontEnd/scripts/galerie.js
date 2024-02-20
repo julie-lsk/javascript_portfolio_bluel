@@ -3,6 +3,9 @@ import {travaux} from "./config.js"
 import {categories} from "./config.js"
 
 
+console.log(window.localStorage.getItem("token")) // vérifie le token
+
+
 // Création de la galerie à partir des données de l'API
 function genererGalerie (travaux)
 {
@@ -36,6 +39,8 @@ genererGalerie(travaux)
 
 
 
+// ********** Création des filtres **********
+
 // Ajout de l'écouteur d'événement sur les boutons de filtres
 function filtrer (boutonElement, nomCategorie)
 {
@@ -55,6 +60,8 @@ function filtrer (boutonElement, nomCategorie)
 
 
 
+// ********** Boutons de filtres **********
+
 // Création des boutons de filtres et de l'écouteur d'événement
 function genererFiltres(categories)
 {
@@ -66,7 +73,7 @@ function genererFiltres(categories)
         // On ajoute du texte à notre bouton
         boutonElement.textContent = categorie.name
         // On ajoute un écouteur d'événement 
-        filtrer(boutonElement, categorie.name)
+        filtrer(boutonElement, categorie.name) // categorie.name = nomCategorie
         sectionFiltres.appendChild(boutonElement)
     })
 }

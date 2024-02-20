@@ -1,6 +1,6 @@
-html
+body
 {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 *
@@ -65,7 +65,6 @@ footer nav ul
 {
     background-color: white;
     margin-top: 45%;
-    bottom: 0;
     padding: 30px;
 }
 
@@ -77,7 +76,6 @@ footer nav ul
 
 .popup-background
 {
-    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -140,7 +138,7 @@ footer nav ul
 #zone-text button
 {
     margin-top: 20px;
-    padding: 7px 20px;
+    padding: 6px 20px 7px 20px;
     font-size: 15px;
     background-color: #B1663C;
     color: #FFFEF8;

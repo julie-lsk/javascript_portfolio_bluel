@@ -54,17 +54,21 @@ table {
 
 /********** Général **********/
 
-body {
+body 
+{
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
-section {
+
+section 
+{
 	margin: 50px 0
 }
 
-h1{ /* logo */
+h1 /* logo */
+{ 
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
@@ -73,17 +77,24 @@ h1{ /* logo */
 	color: #B1663C
 }
 
-h1 > span {
+h1 > span 
+{
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
 }
 
-h2{
+h2
+{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
+}
+
+.desactive
+{
+	display: none;
 }
 
 
@@ -92,24 +103,30 @@ h2{
 
 /********** Header **********/
 
-header {
+header 
+{
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	margin: 50px 0
 }
-nav ul {
+
+nav ul 
+{
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 	gap: 25px;
-
 }
-nav li {
+
+nav li 
+{
 	padding: 0 10px;
 	font-size: 1.2em;
 }
 
-li:hover {
+li:hover 
+{
 	color: #B1663C;
 }
 
@@ -117,6 +134,40 @@ header img
 {
 	width: 22px;
 	height: 22px;
+}
+
+header a
+{
+	text-decoration: none;
+	color: black;
+}
+
+
+
+
+
+/********** Section introduction **********/
+
+.mode-edition
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	font-size: 16px;
+	width: 100%;
+	height: 59px;
+	margin-bottom: 50px;
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.mode-edition img
+{
+	width: 15.58px;
+	height: 15.58px;
+	padding-right: 11.42px;
 }
 
 
