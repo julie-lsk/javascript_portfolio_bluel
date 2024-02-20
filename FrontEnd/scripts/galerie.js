@@ -89,3 +89,45 @@ boutonFiltrerTous.addEventListener('click', () =>
     document.querySelector(".gallery").innerHTML = ""
     genererGalerie(travaux) // on ajoute TOUS les projets
 })
+
+
+
+
+export function modifierPageAccueil()
+{
+    const token = window.localStorage.getItem("token")
+
+    // Si un token est stocké, l'utilisateur est connecté
+    if (token)
+    {
+        // Retire "login" 
+        const login = document.getElementById("login")
+        login.classList.add("desactive")
+
+        // Ajoute "logout"
+        const logout = document.querySelector(".logout")
+        logout.classList.remove("desactive")
+
+        // Ajoute le mode édition
+        const modeEdition = document.querySelector(".mode-edition")
+        modeEdition.classList.remove("desactive")
+
+        // Supprime les filtres
+        const boutonsFiltres = document.querySelectorAll(".filtres");
+        boutonsFiltres.forEach(bouton => 
+        {
+            bouton.remove() // On enlève chaque bouton
+        })
+
+        // Ajoute le bouton "modifier" à côté du titre
+        const btnModifier = document.querySelector(".btn-edition")
+        btnModifier.classList.remove("desactive")
+    }
+    else
+    {
+        console.error("Aucun token n'est stocké")
+    }
+}
+
+modifierPageAccueil()
+

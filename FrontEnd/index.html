@@ -21,7 +21,7 @@
 
 		<header>
 
-			<div class="mode-edition ">
+			<div class="mode-edition desactive">
 				<img src="./assets/icons/icon_edition.svg" alt="Icon du mode édition">
 				<p>Mode édition</p>
 			</div>
@@ -32,8 +32,8 @@
 				<ul>
 					<li>projets</li>
 					<li>contact</li>
-					<a href="./login.html"><li>login</li></a>
-					<a href="./index.html" class="desactive"><li>logout</li></a>
+					<a href="./login.html" id="login"><li>login</li></a>
+					<a href="./login.html" class="desactive logout"><li>logout</li></a>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
 			</nav>
@@ -61,7 +61,14 @@
 
 			<section id="portfolio">
 
-				<h2>Mes Projets</h2>
+				<div class="titre-flex">
+					<h2>Mes Projets</h2>	
+					
+					<div class="btn-edition desactive">
+						<img src="./assets/icons/icon_edition_black.svg" alt="Icone du mode édition">
+						<p>modifier</p>
+					</div>
+				</div>
 
 				<div class="filtres">
 					<button id="btn-tous">Tous</button>

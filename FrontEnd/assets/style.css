@@ -146,7 +146,7 @@ header a
 
 
 
-/********** Section introduction **********/
+/********** Barre "Mode édition" **********/
 
 .mode-edition
 {
@@ -158,9 +158,7 @@ header a
 	font-size: 16px;
 	width: 100%;
 	height: 59px;
-	margin-bottom: 50px;
-	margin-right: 0;
-	margin-left: 0;
+	margin: 0 0 50px 0;
 }
 
 .mode-edition img
@@ -206,21 +204,54 @@ header a
 
 /********** Section portfolio **********/
 
-#portfolio h2 {
+#portfolio h2 
+{
 	text-align: center;
-	margin-bottom: 1em;
 }
-.gallery {
+
+.gallery 
+{
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin-top: 4em;
 }
 
-.gallery img {
+.gallery img 
+{
 	width: 100%;
+}
 
+
+
+
+
+/********** Bouton modifier **********/
+
+.titre-flex 
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 8em;
+	margin-bottom: 1.5em;
+}
+
+.btn-edition
+{
+	display: flex;
+	align-items: flex-end;
+	margin-left: 30px;
+	gap: 10px;
+}
+
+.btn-edition a
+{
+	text-decoration: none;
+	color: black;
 }
 
 
@@ -234,8 +265,6 @@ header a
 	display: flex;
 	justify-content: center;
 	gap: 10px;
-	padding-top: 20px;
-	padding-bottom: 50px;
 }
 
 .filtres button
