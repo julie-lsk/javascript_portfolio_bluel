@@ -15,7 +15,7 @@ function cacherPopup()
 }
 
 
-function fermerPopup()
+export function fermerPopup()
 {
     let btnFermerPopup = document.querySelector("#zone-text button")
 
@@ -35,4 +35,7 @@ function fermerPopup()
     })
 }
 
-fermerPopup()
+
+// Appel des fonctions
+
+// fermerPopup()

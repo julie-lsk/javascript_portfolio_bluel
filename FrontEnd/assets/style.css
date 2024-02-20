@@ -92,12 +92,6 @@ h2
 	color: #1D6154
 }
 
-.desactive
-{
-	display: none;
-}
-
-
 
 
 
@@ -265,6 +259,7 @@ header a
 	display: flex;
 	justify-content: center;
 	gap: 10px;
+	margin-top: 40px;
 }
 
 .filtres button
@@ -346,4 +341,9 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+.desactive
+{
+	display: none;
 }

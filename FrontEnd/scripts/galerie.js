@@ -7,7 +7,7 @@ console.log(window.localStorage.getItem("token")) // vérifie le token
 
 
 // Création de la galerie à partir des données de l'API
-function genererGalerie (travaux)
+export function genererGalerie (travaux)
 {
     travaux.forEach(projet => 
     {
@@ -35,8 +35,6 @@ function genererGalerie (travaux)
     })
 }
 
-genererGalerie(travaux)
-
 
 
 // ********** Création des filtres **********
@@ -62,7 +60,7 @@ function filtrer (boutonElement, nomCategorie)
 
 // ********** Boutons de filtres **********
 
-// Création des boutons de filtres et de l'écouteur d'événement
+// Création des boutons de filtres et ajout de l'écouteur d'événement
 function genererFiltres(categories)
 {
     const sectionFiltres = document.querySelector(".filtres")
@@ -77,8 +75,6 @@ function genererFiltres(categories)
         sectionFiltres.appendChild(boutonElement)
     })
 }
-
-genererFiltres(categories)
 
 
 
@@ -129,5 +125,9 @@ export function modifierPageAccueil()
     }
 }
 
-modifierPageAccueil()
 
+// Appel des fonctions
+
+genererGalerie(travaux)
+genererFiltres(categories)
+modifierPageAccueil()

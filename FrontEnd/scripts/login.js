@@ -1,4 +1,7 @@
-import { afficherPopup } from "./popup.js" // Pour afficher le message d'erreur
+import {afficherPopup, fermerPopup} from "./popup.js" // Pour afficher le message d'erreur
+
+console.log(window.localStorage.getItem("token")) // vérifie le token
+
 
 // Gestion du statut de la réponse
 function verifStatut(response) 
@@ -49,27 +52,29 @@ export function login()
         }
         catch (erreur)
         {
+            console.error("L'adresse mail et/ou le mot de passe ne correspond pas.")
             afficherPopup() // affiche le message d'erreur
         }
     })
 }
 
-login()
 
 
-// Déconnecte l'utilsateur
+// Déconnecte l'utilisateur lorsqu'il est sur la page login
 
-function logout()
+export function logout()
 {
-    const logout = document.querySelector(".logout")
-
-    logout.addEventListener("click", () =>
+    // Si l'URL contient "login.html"
+    if (window.location.href.includes("login.html"))
     {
-        // Redirection vers la page login
-        window.location.href = "login.html" 
         // On retire le token pour déconnecter l'utilisateur
         localStorage.clear() 
-    })
+    }
 }
 
+
+// Appel des fonctions
+
+login()
+fermerPopup()
 logout()

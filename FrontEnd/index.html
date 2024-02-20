@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="./assets/style.css">
 		<script defer src="./scripts/config.js" type="module"></script> <!-- defer = best performance du chargement, le script s'exécute après que la page HTML soit chargée -->
 		<script defer src="./scripts/galerie.js" type="module"></script> <!-- module = best organisation du code js, permet import/export des fonctions / pas de variables globales / pour app complexes -->
-		<!-- <script defer src="./scripts/login.js" type="module"></script> -->
 	</head>
 
 	
@@ -21,12 +20,16 @@
 
 		<header>
 
+			<!--********** Barre "Mode édition" **********-->
 			<div class="mode-edition desactive">
 				<img src="./assets/icons/icon_edition.svg" alt="Icon du mode édition">
 				<p>Mode édition</p>
 			</div>
 
-			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			<!--********** Logo + barre de navigation **********-->
+			<a href="./index.html">
+				<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			</a>
 
 			<nav>
 				<ul>
@@ -43,6 +46,7 @@
 
 		<main>
 
+			<!--********** Introduction **********-->
 			<section id="introduction">
 
 				<figure>
@@ -61,6 +65,7 @@
 
 			<section id="portfolio">
 
+				<!--********** Titre **********-->
 				<div class="titre-flex">
 					<h2>Mes Projets</h2>	
 					
@@ -70,15 +75,18 @@
 					</div>
 				</div>
 
+				<!--********** Boutons de filtres **********-->
 				<div class="filtres">
 					<button id="btn-tous">Tous</button>
 				</div>
 
+				<!--********** Galerie de projet **********-->
 				<div class="gallery"></div>
 				
 			</section>
 
 
+			<!--********** Formulaire de contact **********-->
 			<section id="contact">
 
 				<h2>Contact</h2>
