@@ -34,8 +34,3 @@ export function fermerPopup()
         }
     })
 }
-
-
-// Appel des fonctions
-
-// fermerPopup()
