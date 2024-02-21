@@ -11,8 +11,10 @@
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 		<meta name="description" content="">
 		<link rel="stylesheet" href="./assets/style.css">
+		<link rel="stylesheet" href="./assets/style_modale.css">
 		<script defer src="./scripts/config.js" type="module"></script> <!-- defer = best performance du chargement, le script s'exécute après que la page HTML soit chargée -->
 		<script defer src="./scripts/galerie.js" type="module"></script> <!-- module = best organisation du code js, permet import/export des fonctions / pas de variables globales / pour app complexes -->
+		<script defer src="./scripts/modale.js" type="module"></script>
 	</head>
 
 	
@@ -70,7 +72,7 @@
 					<h2>Mes Projets</h2>	
 					
 					<div class="btn-edition desactive">
-						<img src="./assets/icons/icon_edition_black.svg" alt="Icone du mode édition">
+						<img src="./assets/icons/icon_edition_noir.svg" alt="Icone du mode édition">
 						<p>modifier</p>
 					</div>
 				</div>
@@ -103,6 +105,10 @@
 				</form>
 
 			</section>
+
+
+			<aside class="modale desactive" aria-hidden="true" role="dialog" aria-modal="false"></aside>
+
 
 		</main>
 

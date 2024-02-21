@@ -240,6 +240,7 @@ header a
 	align-items: flex-end;
 	margin-left: 30px;
 	gap: 10px;
+	cursor: pointer; /* Pour rendre la zone "Modifier" cliquable */
 }
 
 .btn-edition a
@@ -342,6 +343,12 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
+
+
+
+
+/********** Footer **********/
 
 .desactive
 {

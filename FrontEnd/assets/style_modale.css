@@ -1,0 +1,104 @@
+/********** Background de la modale **********/
+
+.modale-background
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Flex pour centrer la modale */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/********** Style de la modale **********/
+
+.modale-style
+{
+    width: 630px;
+    height: 688px;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    /* Flex pour centrer le contenu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#croix-fermer
+{
+    position: absolute;
+    top: 30px;
+    left: 570px;
+    cursor: pointer;
+}
+
+
+
+/********** Section "Galerie photo" **********/
+
+.section-galerie
+{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.section-galerie h3
+{
+    font-size: 26px;
+    padding-bottom: 45px;
+}
+
+.section-galerie button
+{
+    font-family: 'Syne';
+	font-size: 14px;
+	color: white;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+    padding: 9px 50px 10px 50px;
+	background-color: #1D6154;
+	cursor: pointer;
+    margin-top: 40px;
+}
+
+.mini-gallery
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 30px;
+    height: max-content;
+    border-bottom: 1px solid #B3B3B3;
+    padding-bottom: 60px;
+}
+
+.mini-gallery figure
+{
+    width: 78px;
+    height: 104px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#poubelle
+{
+    width: 9px;
+    height: 11px;
+    background-color: black;
+    padding: 3px 4px; 
+    margin: 5px;
+    border-radius: 2px;
+}
