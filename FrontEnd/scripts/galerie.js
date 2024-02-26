@@ -88,7 +88,7 @@ boutonFiltrerTous.addEventListener('click', () =>
 
 
 
-
+// Modifie la page d'accueil quand l'utilisateur est connecté
 export function modifierPageAccueil()
 {
     const token = window.localStorage.getItem("token")
@@ -116,12 +116,13 @@ export function modifierPageAccueil()
         })
 
         // Ajoute le bouton "modifier" à côté du titre
-        const btnModifier = document.querySelector(".btn-edition")
+        const btnModifier = document.querySelector(".btn-modifier")
         btnModifier.classList.remove("desactive")
     }
     else
     {
-        console.error("Aucun token n'est stocké")
+        // L'utilisateur n'est pas connecté, on ne modifie rien
+        console.error("Aucun token n'est stocké :)")
     }
 }
 
