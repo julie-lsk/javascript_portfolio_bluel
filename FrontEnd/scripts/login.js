@@ -1,4 +1,4 @@
-import {afficherPopup, fermerPopup} from "./popup.js" // Pour afficher le message d'erreur
+import {afficherPopup, fermerPopup} from "./message_erreur.js" // Pour afficher le message d'erreur
 
 console.log(window.localStorage.getItem("token")) // vérifie le token
 

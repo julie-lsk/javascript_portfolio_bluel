@@ -1,17 +1,5 @@
 /********** Animations de la modale **********/
 
-/* @keyframes effetFondu
-{
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes effetFonduInverse
-{
-    from {opacity: 1;}
-    to {opacity: 0;}
-}
-
 @keyframes slideTop
 {
     from {transform: translateY(-50px);}
@@ -22,13 +10,13 @@
 {
     from {transform: translateY(0px);}
     to {transform: translateY(50px);}
-} */
+}
 
 
 
 /********** Background de la modale **********/
 
-.modale-background /* modal */
+.modale-background
 {
     position: fixed;
     top: 50%;
@@ -41,40 +29,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Animations : */
-    /* animation: effetFondu .3s both;  */
-    /* permet de passer d'1 effet à l'autre */
-
 }
 
 
-/* .modale-background[aria-hidden="true"]
-{
-    animation: effetFonduInverse .3s both;
-}
+/********** Animations de fermeture de la modale : **********/
 
 .modale-background[aria-hidden="true"] .modale-style
 {
     animation: slideBottom .5s both;
-} */
+}
 
 
 
 /********** Style de la modale **********/
 
-.modale-style /* modale-wrapper */
+.modale-style
 {
     position: absolute;
     width: 630px;
-    height: 688px;
+    height: 670px;
     background-color: white;
     border-radius: 10px;
     /* Flex pour centrer le contenu : */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Animations : */
-    /* animation: slideTop .5s both; */
+    /* Animation d'ouverture : */
+    animation: slideTop .5s both;
 }
 
 #croix-fermer
@@ -103,7 +84,7 @@
     flex-wrap: wrap;
 }
 
-.section-galerie h3
+.section-galerie h3, .section-ajout-photo h3
 {
     font-size: 26px;
     padding-bottom: 45px;
@@ -117,7 +98,7 @@
     grid-row-gap: 30px;
     height: max-content;
     border-bottom: 1px solid #B3B3B3;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
 }
 
 .mini-gallery figure /* projets */
@@ -142,15 +123,131 @@
     cursor: pointer;
 }
 
-.section-galerie button /* Ajouter une photo */
+.btn-ajout-photo-galerie
 {
     font-family: 'Syne';
 	font-size: 14px;
 	color: white;
+    width: 237px;
+    white-space: nowrap; 
 	border: 1px solid #1D6154;
 	border-radius: 60px;
     padding: 9px 50px 10px 50px;
 	background-color: #1D6154;
 	cursor: pointer;
     margin-top: 35px;
+}
+
+
+
+
+
+/********** Section "Ajout photo" **********/
+
+.section-ajout-photo
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: 80%;
+}
+
+.conteneur-photo
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    height: 169px;
+    background-color: #E8F1F6;
+    padding: 15px 0;
+}
+
+.conteneur-photo img
+{
+    width: 76px;
+    height: 76px;
+}
+
+.conteneur-photo p
+{
+    font-size: 10px;
+    color: #444444;
+}
+
+#btn-ajout-photo /* + Ajouter photo en gris */
+{
+    background-color: #CBD6DC;
+    border: none;
+    width: 173px;
+    height: 36px;
+    border-radius: 50px;
+    color: #306685;
+    font-family: "Work Sans";
+    font-size: 14px;
+    margin-top: 7px;
+    margin-bottom: 9px;
+    cursor: pointer;
+}
+
+#btn-ajout-photo:hover
+{
+    color: white;
+    background-color: #A7A7A7;
+}
+
+.champs-saisie /* conteneur de "titre" et "catégorie" */
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    width: 100%;
+}
+
+#titre, #categorie
+{
+    border: none;
+    box-shadow: 0px 4px 14px 0px #00000017;
+    height: 51px;
+    margin-top: 10px;
+}
+
+.champs-saisie label
+{
+    font-family: "Work Sans";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+label[for="categorie"]
+{
+    margin-top: 25px;
+}
+
+#barre-span
+{
+    border-bottom: 1px solid #B3B3B3;
+    margin-top: 45px;
+}
+
+#btn-valider
+{
+    font-family: 'Syne';
+	font-size: 14px;
+	color: white;
+    width: 237px;
+    white-space: nowrap; 
+	border: none;
+	border-radius: 60px;
+    padding: 9px 50px 10px 50px;
+	background-color: #A7A7A7;
+	cursor: pointer;
+    margin-top: 35px;
+}
+
+#btn-valider:hover
+{
+    background-color: #1D6154;
 }
