@@ -71,6 +71,19 @@
     opacity: 50%;
 }
 
+#fleche-retour
+{
+    position: absolute;
+    top: 30px;
+    right: 570px;
+    cursor: pointer;
+}
+
+#fleche-retour:hover
+{
+    opacity: 50%;
+}
+
 
 
 /********** Section "Galerie photo" **********/
@@ -84,7 +97,7 @@
     flex-wrap: wrap;
 }
 
-.section-galerie h3, .section-ajout-photo h3
+.section-galerie h3
 {
     font-size: 26px;
     padding-bottom: 45px;
@@ -148,24 +161,52 @@
 {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 70%;
     height: 80%;
 }
 
-.conteneur-photo
+.section-ajout-photo h3
+{
+    font-size: 26px;
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Zone téléchargement image */
+.conteneur-photo 
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 420px;
-    height: 169px;
+    width: 100%;
+    max-height: 169px;
     background-color: #E8F1F6;
     padding: 15px 0;
+    margin-bottom: 30px;
 }
 
-.conteneur-photo img
+/* Zone qui prévisualise l'img téléchargée */
+.conteneur-photo2 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 169px;
+    background-color: #E8F1F6;
+    margin-bottom: 30px;
+}
+
+#image-affichee /* image téléchargée */
+{
+    width: max-content;
+    height:100%;
+}
+
+.conteneur-photo img /* icone image */
 {
     width: 76px;
     height: 76px;
@@ -177,8 +218,19 @@
     color: #444444;
 }
 
-#btn-ajout-photo /* + Ajouter photo en gris */
+/* Disparait pour afficher le span/bouton "+ Ajouter photo" */
+.custom-input input[type="file"]
 {
+    display: none;
+}
+
+/* "+ Ajouter photo" */
+/* Span/bouton qui remplace l'input file*/
+#btn-ajout-photo 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #CBD6DC;
     border: none;
     width: 173px;
@@ -192,35 +244,36 @@
     cursor: pointer;
 }
 
+/* "+ Ajouter photo" */
 #btn-ajout-photo:hover
 {
     color: white;
     background-color: #A7A7A7;
 }
 
-.champs-saisie /* conteneur de "titre" et "catégorie" */
-{
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-    width: 100%;
-}
-
 #titre, #categorie
 {
     border: none;
     box-shadow: 0px 4px 14px 0px #00000017;
-    height: 51px;
+    line-height: 49px;
     margin-top: 10px;
+    width: 100%;
 }
 
-.champs-saisie label
+#categorie
+{
+    padding: 18.15px 0;
+}
+
+/* "Titre" */
+.section-ajout-photo label
 {
     font-family: "Work Sans";
     font-size: 14px;
     font-weight: 500;
 }
 
+/* "Catégorie" - pour liste déroulante */
 label[for="categorie"]
 {
     margin-top: 25px;
@@ -244,10 +297,10 @@ label[for="categorie"]
     padding: 9px 50px 10px 50px;
 	background-color: #A7A7A7;
 	cursor: pointer;
-    margin-top: 35px;
+    margin: 35px auto;    
 }
 
-#btn-valider:hover
+/* #btn-valider:hover
 {
     background-color: #1D6154;
-}
+} */

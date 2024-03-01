@@ -4,7 +4,7 @@
 
 // Import des fonctions/données
 import { travaux } from "../config.js"
-import { sectionAjoutPhoto } from "./modale_ajout_photo.js"
+import { sectionAjoutPhoto, apercuImage, imgAffichee } from "./modale_ajout_photo.js"
 
 
 
@@ -25,6 +25,14 @@ const cheminImage = "./assets/icons/croix.svg"
 croixFermer.src = cheminImage
 croixFermer.id = "croix-fermer"
 modale.appendChild(croixFermer)
+
+// Ajout de la flèche de retour dans la modale
+export const flecheRetour = document.createElement("img")
+const cheminImgFleche = "./assets/icons/arrow-left.svg"
+flecheRetour.src = cheminImgFleche
+flecheRetour.id = "fleche-retour"
+flecheRetour.style.display = "none"
+modale.appendChild(flecheRetour)
 
 
 
@@ -100,6 +108,14 @@ btnModifier.onclick = () =>
 
     // Ajout de la galerie
     miniGalerie()
+
+    // Section "Ajout photo" - écouteur d'event sur btn de téléchargement d'image
+    const inputImage = document.getElementById('input-image');
+    inputImage.addEventListener('change', function(event) 
+    {
+        // Appel de la fonction de prévisualisation de l'image
+        apercuImage(event);
+    })
 }
 
 
@@ -135,3 +151,25 @@ modaleBackground.addEventListener("click", (event) =>
         fermerModale()
     }
 })
+
+
+
+// ********** Flèche retour dans la modale **********
+
+flecheRetour.onclick = () =>
+{
+    // Au clic sur la flèche, si la section "Ajout photo" est ouverte
+    if (getComputedStyle(sectionAjoutPhoto).display === "flex")
+    {
+        // Alors on la retire
+        sectionAjoutPhoto.style.display = "none"
+        // Et on fait apparaitre la section galerie / retour en arrière
+        sectionMiniGalerie.style.display = "flex"
+        // On retire la flèche la section galerie
+        flecheRetour.style.display = "none"
+
+        // Dès qu'on quitte la section "Ajout photo"
+        // On retire la source de l'image (pour réinitialisation)
+        imgAffichee.src = '#'
+    }        
+}
