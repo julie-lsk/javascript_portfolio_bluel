@@ -8,55 +8,13 @@ import { modale, sectionMiniGalerie, flecheRetour } from "./modale_main.js"
 
 
 
-// TEST A REVOIR - COMMIT AVANT GROSSES MODIFS
-function ajoutProjet()
-{
-    const formAjoutProjet = document.querySelector(".champsSaisie")
-    formAjoutProjet.addEventListener("submit", async (event) =>
-    {
-        // Annule le comportement par défaut du nav lors de l'envoi du formulaire
-        event.preventDefault()
-
-        // On récup les infos sur l'utilisateur (mises dans un objet)
-        const infosProjets = 
-        {
-            image: event.target.querySelector("[name=email]").value,
-            title: event.target.querySelector("[name=password]").value,
-            category: event.target.querySelector("[name=password]").value
-        }
-
-        const infosBody = JSON.stringify(infosProjets)
-
-        try
-        {
-            // Requête à l'API pour envoyer les infos pour l'auth / 2ème argument de fetch
-            const reponse = await fetch("http://localhost:5678/api/users/login",
-            {
-                method: 'POST', // création d'un new token / dmd d'auth
-                headers: {"Content-Type": "application/json"}, // corps de la requête = format json
-                body: infosBody // infos utilisateurs
-            })
-
-            const data = await verifStatut(reponse).json()
-            window.localStorage.setItem('token', data.token) // on stocke le token de la réponse
-            window.location.href = "index.html" // renvoi vers la page d'accueil
-        }
-        catch (erreur)
-        {
-            console.error("L'adresse mail et/ou le mot de passe ne correspond pas.")
-            afficherPopup() // affiche le message d'erreur
-        }
-    })
-}
-
-
-
 // ********** Création de la section "Ajout photo" **********
 
 // Création de la section d'ajout de nouveaux projets
 export const sectionAjoutPhoto = document.createElement("form")
 sectionAjoutPhoto.setAttribute("method", "POST")
-sectionAjoutPhoto.setAttribute("url", "/upload-picture")
+sectionAjoutPhoto.setAttribute("action", "http://localhost:5678/api/works")
+// sectionAjoutPhoto.setAttribute("url", "/upload-picture")
 sectionAjoutPhoto.setAttribute("enctype", "multipart/form-data")
 sectionAjoutPhoto.classList.add("section-ajout-photo")
 sectionAjoutPhoto.style.display = "none"
@@ -98,7 +56,7 @@ btnAjoutPhoto.id = "btn-ajout-photo"
 labelImage.appendChild(btnAjoutPhoto)
 
 // Input de type file qui télécharge l'image
-const inputImage = document.createElement("input")
+export const inputImage = document.createElement("input")
 inputImage.id = "input-image"
 inputImage.setAttribute("type", "file")
 inputImage.setAttribute("name", "image")
@@ -195,6 +153,11 @@ sectionAjoutPhoto.appendChild(btnValiderPhoto)
 
 
 
+let imageUrl
+
+
+
+
 // ********** Fonction de prévisualisation de l'image **********
 
 export const apercuImage = function (e)
@@ -234,8 +197,12 @@ export const apercuImage = function (e)
 
         // Lecture de l'image téléchargée sous forme de données URL
         reader.readAsDataURL(picture)
+
+        imageUrl =  e.target.files[0]//URL.createObjectURL(e.target.files[0])
+        console.log(imageUrl)
     }
 }
+
 
 
 
@@ -266,40 +233,86 @@ btnAjouterPhoto.addEventListener("click", () =>
 
 
 
-
-
-
 // ********** Conditions d'envoi du formulaire **********
 
-// Ajoutez un écouteur d'événement à chaque élément pour déclencher la vérification lorsque les valeurs changent
-inputImage.addEventListener('input', verifierConditionsRemplies);
-titrePhoto.addEventListener('input', verifierConditionsRemplies);
-listeCategories.addEventListener('change', verifierConditionsRemplies);
+// Déclenche la vérification lorsque les valeurs changent
+inputImage.addEventListener('input', verifierConditionsRemplies)
+titrePhoto.addEventListener('input', verifierConditionsRemplies)
+listeCategories.addEventListener('change', verifierConditionsRemplies)
 
-
-// Définissez une fonction pour vérifier si les conditions sont remplies et mettre à jour l'état du bouton
 function verifierConditionsRemplies() 
 {
-    const imageUploadee = inputImage.files && inputImage.files.length > 0;
-    const titreSaisi = titrePhoto.value.trim() !== '';
-    const categorieChoisie = listeCategories.value !== '';
-
-    console.log("image : ", imageUploadee)
-    console.log("titre : ", titreSaisi)
-    console.log("catégorie : ", categorieChoisie)
+    // On recherche les valeurs saisies
+    const imageUploadee = inputImage.files && inputImage.files.length > 0
+    const titreSaisi = titrePhoto.value.trim() !== ''
+    const categorieChoisie = listeCategories.value !== ''
 
     // Vérifiez si toutes les conditions sont remplies
-    if (imageUploadee && titreSaisi && categorieChoisie) {
+    if (imageUploadee && titreSaisi && categorieChoisie) 
+    {
         // Si oui, activez le bouton
-        btnValiderPhoto.disabled = false;
+        btnValiderPhoto.disabled = false
         // Changez la couleur du bouton en vert
-        btnValiderPhoto.style.backgroundColor = 'green';
-    } else {
+        btnValiderPhoto.style.backgroundColor = '#1D6154'
+    } 
+    else 
+    {
         // Sinon, désactivez le bouton
-        btnValiderPhoto.disabled = true;
+        btnValiderPhoto.disabled = true
         // Laissez la couleur par défaut du bouton
-        btnValiderPhoto.style.backgroundColor = '';
+        btnValiderPhoto.style.backgroundColor = ''
     }
 }
 
-// verifierConditionsRemplies()
+
+
+
+// ********** Ajout nouveau projet **********
+
+function ajoutProjet()
+{
+    sectionAjoutPhoto.addEventListener("submit", async (event) =>
+    {
+        // Annule le comportement par défaut du nav lors de l'envoi du formulaire
+        event.preventDefault()
+
+        const formData = new FormData(this)
+
+        formData.append("image", imageUrl)
+        formData.append("title", titrePhoto.value)
+        formData.append("category", 1)
+
+        console.log(inputImage.value)
+        console.log(titrePhoto.value)
+        console.log(listeCategories.value)
+
+        // Récupération du token pour autoriser l'envoi d'un projet
+        let token = window.localStorage.getItem("token")
+
+        try
+        {
+            await fetch("http://localhost:5678/api/works", 
+            {
+                method: "POST",
+                headers: {"Authorization": `Bearer ${token}`}, /* Bearer = mode d'auth */
+                body: formData
+            })
+            // Vérifie les données retournées par l'api
+            .then(data =>
+            {
+                console.log(data)
+            })
+
+            // window.location.href = "index.html" // renvoi vers la page d'accueil
+            /* + lui dire d'actualiser la page pour voir les 12 travaux ? */
+        }
+        catch (error)
+        {
+            console.error("Erreur lors de l'envoi du formulaire.", error)
+        }
+
+        // this.reset()
+    })
+}
+
+ajoutProjet()

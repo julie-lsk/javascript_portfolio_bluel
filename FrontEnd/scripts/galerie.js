@@ -2,8 +2,8 @@
 import {travaux} from "./config.js"
 import {categories} from "./config.js"
 
-
-console.log(window.localStorage.getItem("token")) // vérifie le token
+console.log(travaux)
+console.log("token : ",window.localStorage.getItem("token")) // vérifie le token
 
 
 // Création de la galerie à partir des données de l'API
