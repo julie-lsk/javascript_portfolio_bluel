@@ -39,8 +39,10 @@ modale.appendChild(flecheRetour)
 // ********** Création de la section galerie **********
 
 // Création de la section galerie
-export const sectionMiniGalerie = document.createElement("div")
+export const sectionMiniGalerie = document.createElement("form")
 sectionMiniGalerie.classList.add("section-galerie")
+sectionMiniGalerie.setAttribute("method", "DELETE")
+// sectionMiniGalerie.setAttribute("action", "http://localhost:5678/api/works")
 modale.appendChild(sectionMiniGalerie)
 
 // Ajout du titre
@@ -54,10 +56,69 @@ creerMiniGalerie.classList.add("mini-gallery")
 sectionMiniGalerie.appendChild(creerMiniGalerie)
 
 // Création du bouton "Ajouter une photo"
-const btnAjouterPhoto = document.createElement("button")
+const btnAjouterPhoto = document.createElement("div") /* div pour éviter submit du form */
 btnAjouterPhoto.textContent = "Ajouter une photo"
 btnAjouterPhoto.classList.add("btn-ajout-photo-galerie")
 sectionMiniGalerie.appendChild(btnAjouterPhoto)
+
+
+
+
+function rechercheIdProjet(backgroundImage)
+{
+    // Retire tous les élément inutiles de l'url
+    const backgroundImageUrl = backgroundImage.replace(/(^url\(\"|\"\)$)/g, '')
+
+    for (const travail of travaux)
+    {
+        // Comparaison avec l'URL de l'API
+        if (travail.imageUrl === backgroundImageUrl)
+        {
+            // Si les URL correspondent, on renvoie l'id du projet à supprimer
+            return travail.id;
+        }
+    }
+    return null;
+}
+
+
+// Suppression de projet
+
+function suppProjet (event)
+{
+    // Recherche de l'élément qui a déclenché l'événement
+    const elementClique = event.target
+
+    // Récup du conteneur parent de l'élément qui a déclenché l'événement
+    const figureParent = elementClique.closest("figure");
+
+    // Récup l'image de fond de la balise "figure"
+    const backgroundImage = window.getComputedStyle(figureParent).backgroundImage;
+    console.log(backgroundImage) 
+
+    // Recherche de l'id du projet selon l'url de l'image
+    const projetId = rechercheIdProjet(backgroundImage);
+
+    console.log(projetId);
+
+    // Récupération du token pour autoriser l'envoi d'un projet
+    let token = window.localStorage.getItem("token")
+
+    try
+    {
+        fetch(`http://localhost:5678/api/works/${projetId}`, /* `${projetId}` */
+        {
+            method: "DELETE",
+            headers: {"Authorization": `Bearer ${token}`}, /* Bearer = mode d'auth */
+        })
+    }
+    catch (error)
+    {
+        console.error("Erreur lors de la suppression du projet", error)
+    }
+}
+
+
 
 
 
@@ -86,8 +147,12 @@ export function miniGalerie ()
         suppElement.src = cheminImage
         suppElement.id = ("poubelle")
         projetElement.appendChild(suppElement)
+
+        // Appel de la fonction de suppression au click sur la poubelle
+        suppElement.addEventListener("click", suppProjet)
     })
 }
+
 
 
 
@@ -138,10 +203,8 @@ function fermerModale ()
     }, 300)
 }
 
-
 // Au clic sur la croix, la modale se ferme
 croixFermerModale.addEventListener("click", fermerModale)
-
 
 // La modale se ferme quand on clique ailleurs
 modaleBackground.addEventListener("click", (event) =>
@@ -151,6 +214,7 @@ modaleBackground.addEventListener("click", (event) =>
         fermerModale()
     }
 })
+
 
 
 

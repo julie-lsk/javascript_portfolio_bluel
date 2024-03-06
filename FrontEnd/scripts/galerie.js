@@ -2,7 +2,8 @@
 import {travaux} from "./config.js"
 import {categories} from "./config.js"
 
-console.log(travaux)
+
+console.dir(travaux)
 console.log("token : ",window.localStorage.getItem("token")) // vérifie le token
 
 

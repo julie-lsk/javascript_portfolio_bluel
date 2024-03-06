@@ -4,6 +4,7 @@
 
 // Import des catégories pour liste déroulante
 import { categories } from "../config.js"
+import { afficherPopup } from "../message_erreur.js"
 import { modale, sectionMiniGalerie, flecheRetour } from "./modale_main.js"
 
 
@@ -14,7 +15,6 @@ import { modale, sectionMiniGalerie, flecheRetour } from "./modale_main.js"
 export const sectionAjoutPhoto = document.createElement("form")
 sectionAjoutPhoto.setAttribute("method", "POST")
 sectionAjoutPhoto.setAttribute("action", "http://localhost:5678/api/works")
-// sectionAjoutPhoto.setAttribute("url", "/upload-picture")
 sectionAjoutPhoto.setAttribute("enctype", "multipart/form-data")
 sectionAjoutPhoto.classList.add("section-ajout-photo")
 sectionAjoutPhoto.style.display = "none"
@@ -123,6 +123,10 @@ listeCategories.setAttribute("name", "categorie")
 sectionAjoutPhoto.appendChild(listeCategories)
 
 // option
+const optionCacheeCategories = document.createElement("option")
+optionCacheeCategories.textContent = "" /* option vide */
+listeCategories.appendChild(optionCacheeCategories)
+
 categories.forEach(categorie => 
 {
     // On créé 1 balise option par catégorie
@@ -153,7 +157,7 @@ sectionAjoutPhoto.appendChild(btnValiderPhoto)
 
 
 
-let imageUrl
+export let imageUrl /* TODO: que faire avec ça, où le mettre ? */
 
 
 
@@ -197,9 +201,8 @@ export const apercuImage = function (e)
 
         // Lecture de l'image téléchargée sous forme de données URL
         reader.readAsDataURL(picture)
-
-        imageUrl =  e.target.files[0]//URL.createObjectURL(e.target.files[0])
-        console.log(imageUrl)
+        // Sélectionne la 1ère image de l'input file 
+        imageUrl = e.target.files[0] /* FIXME: SERT VRM A QLQ CHOSE ???????????????????????????????????????????????????????????????????????????????????????????????????? */
     }
 }
 
@@ -240,29 +243,56 @@ inputImage.addEventListener('input', verifierConditionsRemplies)
 titrePhoto.addEventListener('input', verifierConditionsRemplies)
 listeCategories.addEventListener('change', verifierConditionsRemplies)
 
+
+
 function verifierConditionsRemplies() 
 {
-    // On recherche les valeurs saisies
-    const imageUploadee = inputImage.files && inputImage.files.length > 0
-    const titreSaisi = titrePhoto.value.trim() !== ''
-    const categorieChoisie = listeCategories.value !== ''
+    // console.log(inputImage.value) /* TODO: */
+    // console.log(titrePhoto.value)
+    // console.log(listeCategories.value)
 
-    // Vérifiez si toutes les conditions sont remplies
+    // On recherche les valeurs saisies et on vérifie leur contenu
+    const imageUploadee = inputImage.files && inputImage.files.length > 0;
+    const titreSaisi = titrePhoto.value.trim() !== '';
+    const categorieChoisie = listeCategories.value !== '';
+
+    // Si toutes les conditions sont remplies
     if (imageUploadee && titreSaisi && categorieChoisie) 
     {
-        // Si oui, activez le bouton
-        btnValiderPhoto.disabled = false
-        // Changez la couleur du bouton en vert
-        btnValiderPhoto.style.backgroundColor = '#1D6154'
-    } 
+        // On active le bouton
+        btnValiderPhoto.disabled = false;
+        // On met le bouton en vert
+        btnValiderPhoto.style.backgroundColor = '#1D6154';
+    }
     else 
     {
-        // Sinon, désactivez le bouton
-        btnValiderPhoto.disabled = true
-        // Laissez la couleur par défaut du bouton
-        btnValiderPhoto.style.backgroundColor = ''
+        // On désactive le bouton
+        btnValiderPhoto.disabled = true;
+        // Laisse le bouton en gris
+        btnValiderPhoto.style.backgroundColor = '';
     }
 }
+
+
+
+// ********** Attribution des id selon la catégorie **********
+
+function idCategorie (categoryName)
+{
+    // categoryName est initialisé dans la fonction ajoutProjet
+
+    switch (categoryName)
+    {
+        // Attribution des id selon le nom des catégories
+        case "Objets" : return 1
+        case "Appartements" : return 2
+        case "Hotels & restaurants" : return 3
+        default : return null
+    }
+}
+
+idCategorie()
+
 
 
 
@@ -278,13 +308,13 @@ function ajoutProjet()
 
         const formData = new FormData(this)
 
+        let categoryName = listeCategories.value
+        // Appel de la fonction qui détermine l'id selon la catégorie
+        let categorieId = idCategorie(categoryName)
+
         formData.append("image", imageUrl)
         formData.append("title", titrePhoto.value)
-        formData.append("category", 1)
-
-        console.log(inputImage.value)
-        console.log(titrePhoto.value)
-        console.log(listeCategories.value)
+        formData.append("category", categorieId)
 
         // Récupération du token pour autoriser l'envoi d'un projet
         let token = window.localStorage.getItem("token")
@@ -297,21 +327,11 @@ function ajoutProjet()
                 headers: {"Authorization": `Bearer ${token}`}, /* Bearer = mode d'auth */
                 body: formData
             })
-            // Vérifie les données retournées par l'api
-            .then(data =>
-            {
-                console.log(data)
-            })
-
-            // window.location.href = "index.html" // renvoi vers la page d'accueil
-            /* + lui dire d'actualiser la page pour voir les 12 travaux ? */
         }
         catch (error)
         {
             console.error("Erreur lors de l'envoi du formulaire.", error)
         }
-
-        // this.reset()
     })
 }
 
