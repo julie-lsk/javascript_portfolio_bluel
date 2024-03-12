@@ -216,11 +216,11 @@ btnModifier.onclick = () =>
     // Ajout de la galerie
     miniGalerie();
 
-    // Section "Ajout photo" - écouteur d'event sur btn de téléchargement d'image
+    // Section "Ajout photo" - bouton de téléchargement d'image
     const inputImage = document.getElementById('input-image');
     inputImage.addEventListener('change', function(event)
     {
-        // Appel de la fonction de prévisualisation de l'image
+        // Prévisualisation de l'image
         apercuImage(event);
     })
 }

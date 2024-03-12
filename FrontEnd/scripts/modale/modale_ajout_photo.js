@@ -7,7 +7,7 @@
 import { categories, travaux } from "../config.js";
 import { genererGalerie } from "../galerie.js";
 import { afficherPopup, fermerPopup } from "../message_erreur.js";
-import { modale, sectionMiniGalerie, flecheRetour, miniGalerie } from "./modale_main.js";
+import { modale, sectionMiniGalerie, flecheRetour } from "./modale_main.js";
 
 
 
@@ -164,76 +164,62 @@ export let imageUrl; /* TODO: que faire avec ça, où le mettre ? */
 
 
 
-// ********** Fonction de prévisualisation de l'image **********
+// ********** Fonction de prévisualisation de l'image + vérif taille **********
 
 export const apercuImage = function (e)
 {
     // Récup de la balise qui affichera l'image téléchargée
     const image = document.getElementById("image-affichee");
 
-    // Création objet FileList qui contient l'image sélectionnée
+    // Création tableau FileList qui contient l'image sélectionnée
     const [picture] = e.target.files;
 
     // Liste des types de fichiers autorisés
     let types = ["image/jpg", "image/jpeg", "image/png"];
 
-    // Vérif si le type de l'image est autorisé
+
+    // Vérif si le type + la taille de l'image
     if (types.includes(picture.type))
     {
-        // On enlève le contenu et son conteneur
-        conteneurPhoto.style.display = "none";
+        let tailleMax = 4 * 1024 * 1024; /* 4mo en bytes */
 
-        // On y ajoute l'image dans un nouveau conteneur (question de style)
-        conteneurPhoto2.style.display = "flex";
-        imgAffichee.style.display = "flex";
-    };
-
-    // Si une image a été sélectionnée
-    if (picture)
-    {
-        // Création d'un objet FileReader pour lire le contenu du fichier/img
-        let reader = new FileReader();
-
-        // On déclenche l'event lorsque la lecture du fichier est terminée
-        reader.onload = function (e)
+        if (picture.size <= tailleMax)
         {
-            // On change l'URL de l'image
-            image.src = e.target.result;
-        };
+            // On enlève le contenu et son conteneur
+            conteneurPhoto.style.display = "none";
 
-        // Lecture de l'image téléchargée sous forme de données URL
-        reader.readAsDataURL(picture);
-        // Sélectionne la 1ère image de l'input file 
-        imageUrl = e.target.files[0]; /* FIXME: SERT VRM A QLQ CHOSE ???????????????????????????????????????????????????????????????????????????????????????????????????? */
+            // On y ajoute l'image dans un nouveau conteneur (question de style)
+            conteneurPhoto2.style.display = "flex";
+            imgAffichee.style.display = "flex";
+
+            // Si une image est sélectionnée
+            if (picture)
+            {
+                // Création d'un objet FileReader pour lire le contenu du fichier/img
+                let reader = new FileReader();
+
+                // On déclenche l'event lorsque la lecture du fichier est terminée
+                reader.onload = function (e)
+                {
+                    // On change l'URL de la balise image
+                    image.src = e.target.result;
+                };
+
+                // Lecture de l'image téléchargée sous forme de données URL
+                reader.readAsDataURL(picture);
+                // Sélectionne la 1ère image de l'input file 
+                imageUrl = e.target.files[0];
+            }
+        }
+        else
+        {
+            // Si taille > 4mo
+            alert("La taille de l'image ne doit pas dépasser 4mo.")
+        }
     }
 }
+// Fonction appelée au clic sur btn "+ Ajouter photo" - modale_main.js
 
-
-
-
-// ********** Ouverture de la 2ème section "Ajout photo" **********
-
-const btnAjouterPhoto = document.querySelector(".btn-ajout-photo-galerie");
-
-btnAjouterPhoto.addEventListener("click", () =>
-{
-    // On retire la section galerie
-    sectionMiniGalerie.style.display = "none";
-
-    // On affiche la section "Ajout photo"
-    sectionAjoutPhoto.style.display = "flex";
-    // On affiche la flèche de retour
-    flecheRetour.style.display = "flex";
-
-
-    // On affiche la zone de téléchargeemnt de photo
-    conteneurPhoto.style.display = "flex";
-    // On cache la zone qui va afficher l'image plus tard (au téléchargement)
-    conteneurPhoto2.style.display = "none";
-
-    // Vide le contenu du champs de saisie du titre de l'img
-    titrePhoto.value = "";
-});
 
 
 
@@ -290,7 +276,6 @@ function initEvent()
     titrePhoto.addEventListener("input", modifBtnCouleur);
     listeCategories.addEventListener("change", modifBtnCouleur);
     inputImage.addEventListener("input", modifBtnCouleur);
-
 }
 
 initEvent();
@@ -312,7 +297,7 @@ function idCategorie (categoryName)
         case "Appartements" : return 2;
         case "Hotels & restaurants" : return 3;
         default : return null;
-    };
+    }
 }
 
 
@@ -347,8 +332,7 @@ async function ajoutProjet()
         // Vérifie si la requête est en succès (code HTTP entre 200 et 300)
         if (response.status >= 200 && response.status < 300) 
         {
-            // alert("Le projet a bien été créé.");
-            travaux.push(await response.json())
+            travaux.push(await response.json());
 
             alert("Statut de la requête : " + response.statusText);
             document.querySelector(".gallery").innerHTML = "";
@@ -360,6 +344,34 @@ async function ajoutProjet()
         console.error("Erreur lors de l'envoi du formulaire : " + erreur);
     }
 }
+
+
+
+
+// ********** Ouverture de la 2ème section "Ajout photo" **********
+
+const btnAjouterPhoto = document.querySelector(".btn-ajout-photo-galerie");
+
+btnAjouterPhoto.addEventListener("click", () =>
+{
+    // On retire la section galerie
+    sectionMiniGalerie.style.display = "none";
+
+    // On affiche la section "Ajout photo"
+    sectionAjoutPhoto.style.display = "flex";
+    // On affiche la flèche de retour
+    flecheRetour.style.display = "flex";
+
+
+    // On affiche la zone de téléchargeemnt de photo
+    conteneurPhoto.style.display = "flex";
+    // On cache la zone qui va afficher l'image plus tard (au téléchargement)
+    conteneurPhoto2.style.display = "none";
+
+    // Vide le contenu du champs de saisie du titre de l'img
+    titrePhoto.value = "";
+});
+
 
 
 

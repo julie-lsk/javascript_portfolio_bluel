@@ -64,7 +64,7 @@ function filtrer (boutonElement, nomCategorie)
 
 // ********** Boutons de filtres **********
 
-// Création des boutons de filtres et ajout de l'écouteur d'événement
+// Création des boutons de filtres - ajout de l'écouteur d'événement
 function genererFiltres(categories)
 {
     const sectionFiltres = document.querySelector(".filtres");
