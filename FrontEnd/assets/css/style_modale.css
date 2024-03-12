@@ -121,7 +121,7 @@
     display: flex;
     flex-direction: row-reverse;
     /* Ajustement de la taille de l'img : */
-    background-size: cover, contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -268,7 +268,7 @@
     min-height: 51px;
     appearance: none; /* retire la flèche par défaut */
     /* Ajoute l'image de la flèche */
-    background-image: url('../assets/icons/Vector.svg');
+    background-image: url('../icons/liste_deroulante.svg');
     background-position: 95% 50%; /* horizontal - vertical */
     background-repeat: no-repeat;
 }
@@ -286,8 +286,6 @@ label[for="categorie"]
 {
     margin-top: 25px;
 }
-
-
 
 #barre-span
 {
