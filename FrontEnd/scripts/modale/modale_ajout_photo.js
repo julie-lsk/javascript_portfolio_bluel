@@ -159,7 +159,7 @@ sectionAjoutPhoto.appendChild(btnValiderPhoto);
 
 
 
-export let imageUrl; /* TODO: que faire avec ça, où le mettre ? */
+export let imageUrl;
 
 
 
@@ -178,45 +178,46 @@ export const apercuImage = function (e)
     let types = ["image/jpg", "image/jpeg", "image/png"];
 
 
-    // Vérif si le type + la taille de l'image
-    if (types.includes(picture.type))
+    // Vérification du type de l'image
+    if (!types.includes(picture.type))
     {
-        let tailleMax = 4 * 1024 * 1024; /* 4mo en bytes */
-
-        if (picture.size <= tailleMax)
-        {
-            // On enlève le contenu et son conteneur
-            conteneurPhoto.style.display = "none";
-
-            // On y ajoute l'image dans un nouveau conteneur (question de style)
-            conteneurPhoto2.style.display = "flex";
-            imgAffichee.style.display = "flex";
-
-            // Si une image est sélectionnée
-            if (picture)
-            {
-                // Création d'un objet FileReader pour lire le contenu du fichier/img
-                let reader = new FileReader();
-
-                // On déclenche l'event lorsque la lecture du fichier est terminée
-                reader.onload = function (e)
-                {
-                    // On change l'URL de la balise image
-                    image.src = e.target.result;
-                };
-
-                // Lecture de l'image téléchargée sous forme de données URL
-                reader.readAsDataURL(picture);
-                // Sélectionne la 1ère image de l'input file 
-                imageUrl = e.target.files[0];
-            }
-        }
-        else
-        {
-            // Si taille > 4mo
-            alert("La taille de l'image ne doit pas dépasser 4mo.")
-        }
+        // Si taille > 4mo
+        alert("Le type de l'image n'est pas autorisé.");
+        return;
     }
+
+    let tailleMax = 4 * 1024 * 1024; /* 4mo en bytes */
+
+    // Vérification de la taille de l'image
+    if (picture.size >= tailleMax)
+    {
+        // Si taille > 4mo
+        alert("La taille de l'image ne doit pas dépasser 4mo.");
+        return;
+    }
+
+    // Si le type et la taille de l'image sont autorisés 
+    // On enlève le contenu et son conteneur
+    conteneurPhoto.style.display = "none";
+
+    // On y ajoute l'image dans un nouveau conteneur (question de style)
+    conteneurPhoto2.style.display = "flex";
+    imgAffichee.style.display = "flex";
+
+    // Création d'un objet FileReader pour lire le contenu du fichier/img
+    let reader = new FileReader();
+
+    // On déclenche l'event lorsque la lecture du fichier est terminée
+    reader.onload = function (e)
+    {
+        // On change l'URL de la balise image
+        image.src = e.target.result;
+    };
+
+    // Lecture de l'image téléchargée sous forme de données URL
+    reader.readAsDataURL(picture);
+    // Sélectionne la 1ère image de l'input file 
+    imageUrl = e.target.files[0];
 }
 // Fonction appelée au clic sur btn "+ Ajouter photo" - modale_main.js
 
@@ -250,26 +251,14 @@ function initEvent()
     {
         event.preventDefault();
 
-        // Par défaut, il n'y a pas d'erreur
-        let erreur = false;
-
         // Si 1 (ou +) des champs n'est pas rempli
         if (titrePhoto.value === '' || listeCategories.value === '' || inputImage.files.length === 0)
         {
-            // L'erreur est "activée"
-            erreur = true;
-        }
-    
-        if (!erreur) 
-        {
-            // Si erreur = false
-            ajoutProjet();
-        }
-        else
-        {
-            // Si erreur = true --> message d'erreur
             afficherPopup();
         }
+
+        // Si non, on ajoute le projet
+        ajoutProjet();
     })
     
     // A chaque modif, on vérifie les champs 
@@ -333,6 +322,9 @@ async function ajoutProjet()
         if (response.status >= 200 && response.status < 300) 
         {
             travaux.push(await response.json());
+
+            // Renvoi vers la page d'accueil
+            window.location.href = "index.html"
 
             alert("Statut de la requête : " + response.statusText);
             document.querySelector(".gallery").innerHTML = "";
