@@ -12,9 +12,10 @@ function verifStatut(response)
     // Vérifie si la requête est en succès (code HTTP entre 200 et 300)
     if (response.status >= 200 && response.status < 300) 
     {
+        // On transforme la réponse en JSON dans la fonction login
         return response;
     }
-} 
+}
 // Aide pour gérer le statut de la réponse : https://github.com/JakeChampion/fetch
 
 

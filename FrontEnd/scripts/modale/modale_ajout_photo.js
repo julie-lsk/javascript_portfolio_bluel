@@ -3,7 +3,7 @@
 
 
 
-// Import des catégories pour liste déroulante
+// Import des variables et fonctions
 import { categories, travaux } from "../config.js";
 import { genererGalerie } from "../galerie.js";
 import { afficherPopup, fermerPopup } from "../message_erreur.js";
@@ -163,7 +163,6 @@ export let imageUrl;
 
 
 
-
 // ********** Fonction de prévisualisation de l'image + vérif taille **********
 
 export const apercuImage = function (e)
@@ -183,7 +182,6 @@ export const apercuImage = function (e)
     {
         // Si taille > 4mo
         alert("Le type de l'image n'est pas autorisé.");
-        return;
     }
 
     let tailleMax = 4 * 1024 * 1024; /* 4mo en bytes */
@@ -321,14 +319,15 @@ async function ajoutProjet()
         // Vérifie si la requête est en succès (code HTTP entre 200 et 300)
         if (response.status >= 200 && response.status < 300) 
         {
+            // Ajout du projet en JSON dans la variable
             travaux.push(await response.json());
-
-            // Renvoi vers la page d'accueil
-            window.location.href = "index.html"
 
             alert("Statut de la requête : " + response.statusText);
             document.querySelector(".gallery").innerHTML = "";
             genererGalerie(travaux);
+
+            // Renvoi vers la page d'accueil
+            window.location.href = "index.html"
         }
     }
     catch (erreur)

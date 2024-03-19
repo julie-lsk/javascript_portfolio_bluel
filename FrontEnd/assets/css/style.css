@@ -280,7 +280,7 @@ header a
 	align-items: flex-end;
 	margin-left: 30px;
 	gap: 10px;
-	cursor: pointer; /* Pour rendre la zone "Modifier" cliquable */
+	cursor: pointer;
 }
 
 .btn-modifier a
