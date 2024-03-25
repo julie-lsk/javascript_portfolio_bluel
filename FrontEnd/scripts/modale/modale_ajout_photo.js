@@ -325,9 +325,6 @@ async function ajoutProjet()
             alert("Statut de la requête : " + response.statusText);
             document.querySelector(".gallery").innerHTML = "";
             genererGalerie(travaux);
-
-            // Renvoi vers la page d'accueil
-            window.location.href = "index.html"
         }
     }
     catch (erreur)

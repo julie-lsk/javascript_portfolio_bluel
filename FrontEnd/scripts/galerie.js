@@ -50,7 +50,7 @@ function filtrer (boutonElement, nomCategorie)
     {
         const projetsFiltres = travaux.filter(function (projet)
         {
-            // On cherche les projets ayant la même catégorie
+            // On cherche les projets ayant la même catégorie que notre bouton
             return projet.category.name === nomCategorie;
         });
         
